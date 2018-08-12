@@ -1,4 +1,4 @@
-// Initialize Firebase
+ // Initialize Firebase
 var config = {
     apiKey: "AIzaSyCwESi4VQBmC-n5ien3r-bx_0VkRTFjX-8",
     authDomain: "trainschedule-971aa.firebaseapp.com",
@@ -9,61 +9,68 @@ var config = {
 };
 firebase.initializeApp(config);
 
-var trainData = firebase.database().ref();
-//Shows user the current time
-$("#currentTime").append(moment().format("hh:mm A"));
+// create a variable to reference the database
+var database = firebase.database();
 
-// Button for adding trains
-$("#addTrainBtn").on("click", function() {
-    event.preventDefault();
-    // Grabs user input
-    var trainName = $("#trainNameInput").val().trim();
-    var destination = $("#destinationInput").val().trim();
-    var firstTrain = moment($("#firstTrainInput").val().trim(), "HH:mm").subtract(10, "years").format("X");
-    var frequency = $("#frequencyInput").val().trim();
+// initial values
+var trainName = "no name";
+var destination = "nowhere";
+var firstTrainTime = 0;
+var frequency = 0;
 
-    // Creates local "temporary" object for holding train data
-    var newTrain = {
-        name: trainName,
-        destination: destination,
-        firstTrain: firstTrain,
-        frequency: frequency
-    }
+// ---------
+// at the initial load and subsequent value changes, get a snapshot of the stored data.
+// this function allows you to update your page in real-time when the firebase database changes.
+database.ref().on("value", function(snapshot) {
+     // if firebase has train information stored, update client-side variables
+     if (snapshot.child("trainName").exists() &&
+     snapshot.child("destination").exists() &&
+     snapshot.child("firstTrainTime").exists() &&
+     snapshot.child("frequency").exists()) {
+         trainName = snapshot.val().trainName;
+         destination = snapshot.val().destination;
+         firstTrainTime = parseInt(snapshot.val().firstTrainTime);
+         frequency = parseInt(snapshot.val().frequency);
+     }
+     
+     // if firebase does not have variable values stored, they remain the same as the
+     // values we set when we initialized the variables.
+     // in either case, we want to log the values to console and display them on the page.
+    console.log(trainName);
+    console.log(destination);
+    console.log(firstTrainTime);
+    console.log(frequency);
+    $("#train-name").text(trainName);
+    $("#destination-span").text(destination);
+    $("#next-arrival").text(firstTrainTime);
+    $("#frequency-span").text(frequency);
 
-    // Uploads train data to the database
-    trainData.push(newTrain);
+    // if any errors are experienced, log them to console.
+    }, function(errorObject) {
+        console.log("the read failed: " + errorObject.code);
+    });
+    // ------
+    // whenever user clicks addTrainBtn add train button
+    $("#addTrainBtn").on("click", function(event) {
+        event.preventDefault();
+        //get the input values
+        var trainName = $("#trainNameInput").val().trim();
+        var destination = $("#destinationInput").val().trim();
+        var firstTrainTime = $("#firstTrainInput").val().trim();
+        var frequency = $("#frequencyInput").val().trim();
 
-    // Alert
-    alert(newTrain.name + " has been successfully added");
+        // log the user input
+        console.log(trainName);
+        console.log(destination);
+        console.log(firstTrainTime);
+        console.log(frequency);
 
-    // Clears all of the text-boxes
-    $("#trainNameInput").val("");
-    $("#destinationInput").val("");
-    $("#trainTimeInput").val("");
-    $("#trainFrequencyInput").val("");
-
-    return false;
-});
-
-
-// Create Firebase event for adding trains to the database and a row in the html when a user adds an entry
-trainData.on("child_added", function(childSnapshot) {
-
-    let data = childSnapshot.val();
-    let trainNames = data.name;
-    let trainDestin = data.destination;
-    let trainFrequency = data.frequency;
-    let theFirstTrain = data.firstTrain;
-    console.log(theFirstTrain);
-    // Calculate the minutes until arrival using hardcore math
-    // To calculate the minutes till arrival, take the current time in unix subtract the FirstTrain time and find the modulus between the difference and the frequency  
-    let tRemainder = moment().diff(moment.unix(theFirstTrain), "minutes") % trainFrequency;
-    let tMinutes = trainFrequency - tRemainder;
-
-    // To calculate the arrival time, add the tMinutes to the currrent time
-    let tArrival = moment().add(tMinutes, "m").format("hh:mm A");
-
-    // Add each train's data into the table 
-    $("#trainTable > tbody").append("<tr><td>" + trainNames + "</td><td>" + trainDestin + "</td><td class='min'>" + trainFrequency + "</td><td class='min'>" + tArrival + "</td><td class='min'>" + tMinutes + "</td></tr>");
-
-});
+        // save to firebase
+        // the ui
+        database.ref().set({
+            trainName: trainName,
+            destination: destination,
+            firstTrainTime: firstTrainTime,
+            frequency = frequency
+        });
+    });

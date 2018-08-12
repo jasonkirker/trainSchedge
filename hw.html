@@ -2,10 +2,11 @@
 <head>
     <title>Train Schedule</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, intial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- firebase -->
-    <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase-app.js"></script>
+    
     <!-- bootstrap css & js -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
@@ -19,9 +20,10 @@
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
     <!--CSS-->
     <link rel="stylesheet" type="text/css" href="assets/style.css">
+    
 </head>
 <body>
-    <p> <img src="assets/payne.gif" alt="major payne" float="middle"> </p>
+    <!-- <p> <img src="assets/payne.gif" alt="major payne" float="middle"> </p> -->
     <div class="container">
         <div class="jumbotron">
             <h1 class="text-center">Train Schedule</h1>
@@ -42,11 +44,11 @@
                 <div>
                     <table id="trainTable">
                         <tr>
-                            <th><i class="fas fa-train"></i> Train Name</th>
-                            <th><i class="far fa-paper-plane"></i> Destination</th>
-                            <th id="times"><i class="far fa-clock"></i> Frequency (min)</th>
-                            <th id="times"><i class="far fa-calendar-alt"></i> Next Arrival</th>
-                            <th id="times"><i class="fas fa-stopwatch"></i> Minutes Away</th>
+                            <th><i class="fas fa-train"></i> Train Name <span id="train-name"></span></th>
+                            <th><i class="far fa-paper-plane"></i> Destination <span id="destination-span"></span></th>
+                            <th id="times"><i class="far fa-clock"></i> Frequency (min)<span id="frequency-span"></span></th>
+                            <th id="times"><i class="far fa-calendar-alt"></i> Next Arrival <span id="next-arrival"></span></th>
+                            <th id="times"><i class="fas fa-stopwatch"></i> Minutes Away <span id="minutes-away"></span></th>
                         </tr>
                     </table>
                 </div>
@@ -67,14 +69,7 @@
                             <br>
                             <input type="text" class="form-control" name="trDest" id="destinationInput" placeholder="where to?" required>
                             <br>
-                            <label for="trainTimeInput">First Train Time (military time)</label>
-                            <br>
-                            <input type="text" class="form-control" name="trTime" id="trainTimeInput" placeholder="military time (hh:mm)" required>
-                            <br>
-                            <label for="trainFrequencyInput">Frequency (min)</label>
-                            <br>
-                            <input type="text" class="form-control" name="trFrequency" id="trainFrequencyInput" placeholder="" required>
-                            <br>
+   
                         </form>
                         <form class="form-inline">
                             <label for="firstTrainInput">First Train Time</label>
