@@ -59,6 +59,7 @@ database.ref().on("child_added", function (childSnapshot) {
     var nextTrain = moment().add(tMinutesTillTrain, "minutes");
     console.log("Arrival time: " + moment(nextTrain).format("hh:mm"));
 
+    $("#currentTime").text(currentTime);
 
     newTableRow = $("#trainInfo").append("<tr>");
     newTableRow.append("<td>" + childSnapshot.val().name + "</td>");

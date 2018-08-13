@@ -10,11 +10,11 @@
     <link rel="stylesheet" type="text/css" href="assets/style.css">
     <!-- firebase -->
     <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase-database.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase-auth.js"></script> -->
+    <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase-database.js"></script> 
     <!-- moment.js -->
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
-    <!--CSS-->
+    
     <title>Train Schedule</title>
 </head>
 <body>
@@ -25,6 +25,14 @@
                 <h1 class="d-inline-block">Chugga chugga choo choo</h1>
             </div>
         </div>
+    </div>
+
+    <div class="container">
+            <div class="row">
+                <div class="col-sm-12 text-center header">
+                    <h2 id="currentTime">The current time is: </h2>
+                </div>
+            </div>
     </div>
 
     <div class="container mt-2 border border-dark">
@@ -60,26 +68,22 @@
                     <div class="form group mt-2">            
                         <label for="trainName">Train Name
                             </label>
-                        <textarea class="form-control" id="trainName" rows="1">
-                            </textarea>
+                        <input type="text" class="form-control" id="trainName">
                     </div>
                     <div class="form group mt-2">
                         <label for="destination">Destination
                             </label>
-                        <textarea class="form-control" id="destination" rows="1">
-                            </textarea>
+                        <input type="text" class="form-control" id="destination">
                     </div>
                     <div class="form group mt-2">
                         <label for="trainTime">First train time (hh:mm military time)
                             </label>
-                        <textarea class="form-control" id="trainTime" rows="1">
-                            </textarea>
+                        <input type="text" class="form-control" id="trainTime">
                     </div>
                     <div class="form group mt-2">            
                         <label for="frequency">Frequency (min)
                             </label>
-                        <textarea class="form-control" id="frequency" rows="1">
-                            </textarea>
+                        <input type="text" class="form-control" id="frequency">
                     
                     <button type="submit" class="btn btn-dark mt-2 current" id="submit">submit
                         </button>
