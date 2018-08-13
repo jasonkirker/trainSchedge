@@ -1,43 +1,19 @@
-
-
-.jumbotron {
-    text-align: center;
-    background: #00a19e;
+*{
+    margin:0;
+    padding:0;
 }
 
-#trainTable {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
+.current{
+    background-color: #780f2b !important;
 }
 
-#trainTable td,
-#trainTable th {
-    border: 1px solid #fee7c8;
-    padding: 10px;
+.header{
+    border:2px solid black;
+    padding-top:30px;
+    padding-bottom:30px;
+    background-color: #00a19e;
 }
 
-#trainTable tr:nth-child(even) {
-    background-color: #fee7c8;
-}
-
-#trainTable tr:hover {
-    background-color: #fee7c8;
-}
-
-#trainTable th {
-    height: 50px;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #50364c;
-    color: white;
-}
-
-.min {
-    text-align: center;
-}
-
-#trainTable #times {
-    text-align: center;
+.row {
+    padding-bottom: 10px;
 }
